@@ -1,0 +1,20 @@
+class insufficient_balance(Exception):
+    def __init__(self, balance, withdrawl_amount):
+        self.balance = balance
+        self.withdrawl_amount = withdrawl_amount
+        super(). __init__(F"Insufficient balance! Available {balance} , Requested {withdrawl_amount}")
+class BankAccount:
+    def __init__(self, initial_balance=0):
+        self.balance = initial_balance
+    def deposit(self, amount):
+        if amount > 0:
+            self.balance += amount
+            print(f"Deposited {amount}. New balance is {self.balance}")
+        else:
+            raise ValueError("Invalid deposit amount")
+    def withdraw(self, amount):
+        if amount > self.balance:
+            raise insufficient_balance(self.balance, amount)
+        self.balance -= amount
+        print(f"Withdrew {amount}. New balance is {self.balance}")
+    
